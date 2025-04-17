@@ -3,81 +3,75 @@ document.addEventListener('DOMContentLoaded', function() {
     const botaoResetar = document.getElementById('resetar');
     const resultado = document.getElementById('resultado');
     const listaHistorico = document.getElementById('lista-historico');
+    const contadorFaltantes = document.getElementById('contador-faltantes');
+
     let historico = [];
     let ultimoSorteado = null;
-    let penultimoSorteado = null;
-    
-    // Criar o modal de confirmação
+
     criarModalConfirmacao();
-    
+    atualizarContador();
+
     botaoSortear.addEventListener('click', function() {
-        // Gerar número aleatório entre 1 e 300
-        const numeroSorteado = Math.floor(Math.random() * 300) + 1;
-        
-        // Atualizar o penúltimo número
-        penultimoSorteado = ultimoSorteado;
-        ultimoSorteado = numeroSorteado;
-        
-        // Exibir o número sorteado
-        resultado.textContent = numeroSorteado;
-        
-        // Adicionar o número ao histórico (sem duplicatas)
-        if (!historico.includes(numeroSorteado)) {
-            historico.push(numeroSorteado);
+        if(historico.length >= 300) {
+            resultado.textContent = 'Todos os números foram sorteados!';
+            return;
         }
-        
-        // Ordenar o histórico em ordem crescente
+
+        let numeroSorteado;
+        do {
+            numeroSorteado = Math.floor(Math.random() * 300) + 1;
+        } while (historico.includes(numeroSorteado));
+
+        ultimoSorteado = numeroSorteado;
+        historico.push(numeroSorteado);
         historico.sort((a, b) => a - b);
-        
-        // Atualizar a exibição do histórico
+
+        resultado.textContent = numeroSorteado;
         atualizarHistorico();
+        atualizarContador();
     });
-    
+
     botaoResetar.addEventListener('click', function() {
-        // Mostrar o modal de confirmação
         document.getElementById('modal-confirmacao').style.display = 'flex';
     });
-    
+
     function atualizarHistorico() {
-        // Limpar a lista de histórico atual
         listaHistorico.innerHTML = '';
-        
-        // Adicionar cada número do histórico à lista
         historico.forEach(numero => {
             const elemento = document.createElement('div');
             elemento.textContent = numero;
             elemento.className = 'numero-historico';
-            
-            // Verificar se é o penúltimo número sorteado
-            if (numero === penultimoSorteado && penultimoSorteado !== null) {
-                elemento.classList.add('ultimo-sorteado'); // Mantendo o nome da classe para não alterar o CSS
+            if (numero === ultimoSorteado && ultimoSorteado !== null) {
+                elemento.classList.add('ultimo-sorteado');
             }
-            
             listaHistorico.appendChild(elemento);
         });
     }
-    
+
     function resetarSorteio() {
-        // Limpar o histórico
         historico = [];
-        // Resetar os números rastreados
         ultimoSorteado = null;
-        penultimoSorteado = null;
-        // Resetar o número exibido
         resultado.textContent = '-';
-        // Limpar a lista visível
         listaHistorico.innerHTML = '';
-        // Fechar o modal
         document.getElementById('modal-confirmacao').style.display = 'none';
+        atualizarContador();
     }
-    
+
+    function atualizarContador() {
+        const restantes = 300 - historico.length;
+        if (restantes === 0) {
+            contadorFaltantes.textContent = 'Todos os números já foram sorteados!';
+        } else {
+            contadorFaltantes.textContent = `Faltam ${restantes} números a serem sorteados.`;
+        }
+    }
+
     function criarModalConfirmacao() {
-        // Criar o elemento do modal
         const modal = document.createElement('div');
         modal.id = 'modal-confirmacao';
         modal.className = 'modal';
-        
-        // Conteúdo do modal
+        modal.style.display = 'none';
+
         modal.innerHTML = `
             <div class="modal-content">
                 <h3>Confirmar Reset</h3>
@@ -88,13 +82,11 @@ document.addEventListener('DOMContentLoaded', function() {
                 </div>
             </div>
         `;
-        
-        // Adicionar o modal ao documento
+
         document.body.appendChild(modal);
-        
-        // Adicionar event listeners aos botões do modal
-        document.getElementById('btn-confirmar').addEventListener('click', resetarSorteio);
-        document.getElementById('btn-cancelar').addEventListener('click', function() {
+
+        modal.querySelector('#btn-confirmar').addEventListener('click', resetarSorteio);
+        modal.querySelector('#btn-cancelar').addEventListener('click', function() {
             document.getElementById('modal-confirmacao').style.display = 'none';
         });
     }
