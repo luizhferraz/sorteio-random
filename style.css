@@ -49,12 +49,12 @@ button {
 }
 
 #sortear {
-    background-color: #4CAF50;
+    background-color: #4f4caf;
     color: white;
 }
 
 #sortear:hover {
-    background-color: #45a049;
+    background-color: #7c78e3;
 }
 
 .btn-resetar {
