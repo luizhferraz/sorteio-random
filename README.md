@@ -1,76 +1,45 @@
-# 🎲 Sorteio Random
+# Sorteador de Números
 
-Aplicação web simples para realizar sorteios totalmente aleatórios de nomes ou números. Feita com React + Vite para facilitar o uso em qualquer dispositivo, seja em festas, reuniões ou sorteios online.
+Uma aplicação web simples para sortear números aleatórios únicos dentro de um intervalo definido.
 
-## ✨ Funcionalidades
+## Funcionalidades
 
-- Sorteio de nomes (digite um nome por linha)
-- Sorteio de números (informe o intervalo desejado)
-- Design responsivo e fácil de usar
-- Copiar resultado com 1 clique
-- Novo sorteio rápido
+- Interface simples e intuitiva
+- Sorteio de números únicos (não repete números já sorteados)
+- Personalização da quantidade máxima de números a serem sorteados
+- Histórico de números sorteados em ordem crescente
+- Contador de números restantes
+- Função de reset com confirmação
 
-## 🔨 Tecnologias utilizadas
+## Como usar
 
-- [React](https://react.dev/)
-- [Vite](https://vitejs.dev/)
-- [TypeScript](https://www.typescriptlang.org/)
+1. Digite a quantidade de números que deseja sortear no campo "Quantidade de números a sortear"
+2. Clique no botão "Sortear" para gerar um número aleatório
+3. O número sorteado aparecerá em destaque no topo
+4. Os números já sorteados aparecem em ordem crescente na seção "Histórico"
+5. Use o botão "Resetar" para limpar o histórico e começar novamente
 
-## 🚀 Como rodar localmente
+## Regras
 
-1. **Clone o repositório:**
-    ```bash
-    git clone https://github.com/luizhferraz/sorteio-random.git
-    cd sorteio-random
-    ```
+- Não é possível sortear o mesmo número duas vezes
+- A quantidade máxima deve ser um número positivo maior que zero
+- O sorteio é encerrado quando todos os números possíveis forem sorteados
 
-2. **Instale as dependências:**
-    ```bash
-    npm install
-    ```
+## Tecnologias utilizadas
 
-3. **Execute o projeto:**
-    ```bash
-    npm run dev
-    ```
+- HTML5
+- CSS3
+- JavaScript (Vanilla)
 
-4. **Acesse no navegador:**
-    ```
-    http://localhost:5173
-    ```
+## Estrutura do projeto
 
-## 📝 Como usar
+```
+sorteio-random/
+├── index.html      # Estrutura da página
+├── style.css       # Estilos e layout
+└── script.js       # Lógica do sorteador
+```
 
-- Para sortear **nomes**:  
-  Digite um nome por linha no campo de texto e clique no botão "Sortear".
+## Responsividade
 
-- Para sortear **números**:  
-  Informe o número inicial e final do intervalo desejado e clique em "Sortear".
-
-O resultado aparecerá em destaque.  
-Você pode copiar rapidamente o resultado ou realizar um novo sorteio.
-
-## 🚧 Melhorias futuras
-
-- [ ] Sorteio de múltiplos itens ao mesmo tempo
-- [ ] Tema claro/escuro
-- [ ] Exportação de resultados
-
-## 🤝 Contribua!
-
-Contribuições são bem-vindas!  
-Siga os passos abaixo:
-
-1. Fork este repositório
-2. Crie uma branch: `git checkout -b minha-feature`
-3. Faça commit das suas alterações: `git commit -m 'feat: Minha nova feature'`
-4. Push para sua branch: `git push origin minha-feature`
-5. Abra um Pull Request
-
-## 🐞 Relatar bug ou sugestão
-
-Abra uma [Issue](https://github.com/luizhferraz/sorteio-random/issues) para relatar problemas ou sugerir melhorias.
-
-## 📄 Licença
-
-Este projeto está licenciado sob a licença [MIT](./LICENSE).
+A aplicação é totalmente responsiva e se adapta a diferentes tamanhos de tela, incluindo dispositivos móveis.
