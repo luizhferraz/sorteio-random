@@ -4,6 +4,7 @@ document.addEventListener('DOMContentLoaded', function() {
     const resultado = document.getElementById('resultado');
     const listaHistorico = document.getElementById('lista-historico');
     const contadorFaltantes = document.getElementById('contador-faltantes');
+    const numeroMaximo = document.getElementById('numeroMaximo');
 
     let historico = [];
     let ultimoSorteado = null;
@@ -12,14 +13,21 @@ document.addEventListener('DOMContentLoaded', function() {
     atualizarContador();
 
     botaoSortear.addEventListener('click', function() {
-        if(historico.length >= 300) {
+        const max = parseInt(numeroMaximo.value);
+        
+        if (max < 1) {
+            alert('O número máximo deve ser maior que zero!');
+            return;
+        }
+
+        if(historico.length >= max) {
             resultado.textContent = 'Todos os números foram sorteados!';
             return;
         }
 
         let numeroSorteado;
         do {
-            numeroSorteado = Math.floor(Math.random() * 300) + 1;
+            numeroSorteado = Math.floor(Math.random() * max) + 1;
         } while (historico.includes(numeroSorteado));
 
         ultimoSorteado = numeroSorteado;
@@ -58,7 +66,8 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     function atualizarContador() {
-        const restantes = 300 - historico.length;
+        const max = parseInt(numeroMaximo.value);
+        const restantes = max - historico.length;
         if (restantes === 0) {
             contadorFaltantes.textContent = 'Todos os números já foram sorteados!';
         } else {
