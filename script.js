@@ -10,13 +10,20 @@ document.addEventListener('DOMContentLoaded', function() {
     let ultimoSorteado = null;
 
     criarModalConfirmacao();
-    atualizarContador();
+
+    numeroMaximo.addEventListener('input', function() {
+        if (this.value && parseInt(this.value) > 0) {
+            atualizarContador();
+        } else {
+            contadorFaltantes.textContent = '';
+        }
+    });
 
     botaoSortear.addEventListener('click', function() {
         const max = parseInt(numeroMaximo.value);
         
-        if (max < 1) {
-            alert('O número máximo deve ser maior que zero!');
+        if (!max || max < 1) {
+            alert('Por favor, digite um número válido maior que zero!');
             return;
         }
 
@@ -67,6 +74,10 @@ document.addEventListener('DOMContentLoaded', function() {
 
     function atualizarContador() {
         const max = parseInt(numeroMaximo.value);
+        if (!max || max < 1) {
+            contadorFaltantes.textContent = '';
+            return;
+        }
         const restantes = max - historico.length;
         if (restantes === 0) {
             contadorFaltantes.textContent = 'Todos os números já foram sorteados!';
