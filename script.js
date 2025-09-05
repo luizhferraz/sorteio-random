@@ -56,9 +56,6 @@ document.addEventListener('DOMContentLoaded', function() {
             const elemento = document.createElement('div');
             elemento.textContent = numero;
             elemento.className = 'numero-historico';
-            if (numero === ultimoSorteado && ultimoSorteado !== null) {
-                elemento.classList.add('ultimo-sorteado');
-            }
             listaHistorico.appendChild(elemento);
         });
     }
